@@ -80,6 +80,8 @@ section {
     font-weight: bold;
     text-decoration: none;
     color: #000;
+    /* Edit transition to make it more smooth */
+    transition: ease-in-out 0.6s all;
 }
 
 .navbar__menu .menu__link:hover {

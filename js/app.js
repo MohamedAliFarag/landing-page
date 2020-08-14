@@ -1,10 +1,23 @@
+/**
+ * Define Global Variables
+ * 
+*/
+
 // target elements
 // navbar list (ul)
 const navbarList = document.querySelector('#navbar__list')
 //sections
 let sections = document.querySelectorAll('section')
-//links
-// let links = document.querySelectorAll('a')
+
+
+
+/**
+ * End Global Variables
+ * Begin Main Functions
+ * 
+*/
+
+//create navbar items dynamically
 
 
 //Loop over the sections : so new sections add to the navbar
@@ -13,12 +26,12 @@ sections.forEach((section)=>{
 const li = document.createElement('li')
 //create new anchor
 const link = document.createElement('a')
-//use setAttrubute to add link for sections
+//use setAttrubute to add data-link for sections
 //use getAttribute() method to get the id of each section
-link.setAttribute('href', `#${section.getAttribute("id")}`)
+link.setAttribute('data-link',  section.getAttribute("id") )
 //use textcontent to add section name using getAttribute method from data-nav
 link.textContent = section.getAttribute("data-nav")
-//add custom CSS class to each new li element
+//add custom CSS class to each new anchor element
 link.setAttribute('class',"menu__link")
 //apend li to the navbar ul
 navbarList.appendChild(li)
@@ -28,58 +41,66 @@ li.appendChild(link)
 })
 
 
+//********************** */
 //SCROLL
+// Add class 'active' to section when near top of viewport
+//********************** */
 
-//Single section
-// document.addEventListener("scroll",()=>{
-//     //get section
-//     let section = document.querySelector("section")
-//     //use getBoundingClientRect method to get the position of section on the viewport
-//     let rec = section.getBoundingClientRect();
-//     //select anchor tag
-//     let link = document.querySelector("a")
-//     //check if the top of the element less than the height of the viewport using window.scrollY && element bottom is larger than 0
-//     if(rec.top < window.scrollY && rec.bottom >0){
-//         //if true add class active to the anchor tag
-//         link.classList.add("active")
-//     }else{
-//         // if not true remove the class from the anchor tag
-//         link.classList.remove("active")
-//     } 
-// })
-
+//add eventlistener on the document type "scroll"
 document.addEventListener('scroll',()=>{
-    //select all the anchor tags
+    //select all anchor tags
     let links = document.querySelectorAll('a')
-    //loop in the NodeList using forEach
+    //loop in all anchor tags using forEach
     links.forEach(link=>{
-        //select the section using link.getAttribute to get the href that will be the same as section id
-        let section = document.querySelector(link.getAttribute('href'))
+        //select the section using link.getAttribute() method to get the section which have the same anchor tag data-link name
+        let section = document.querySelector(`#${link.getAttribute('data-link')}`)
         //use getBoundingClientRect() to get the element position in the viewport
-        let rec = section.getBoundingClientRect()
-        //make a condition to know if the element in the visible viewport or not 
-        //element top larger than or equal 0 
-        //&& the element bottom is smaller than or equal the viewport innerHeight
-        if(rec.top >= 0 && rec.bottom <= (window.innerHeight) ){
-            //if (true) add class active to the anchor tag
+        let position = section.getBoundingClientRect()
+        //make a condition to know if the section in the visible viewport or not 
+        //section top must be larger than or equal 0 
+        //&& the section bottom is smaller than or equal the viewport innerHeight
+        if(position.top >= 0 && position.bottom <= (window.innerHeight) ){
+            //if (true) add class active to the anchor tag using classList.add() method
             link.classList.add('active')
             console.log(`
                 ${section.getAttribute('id')} 
-                rec top : ${rec.top}
-                rec bottom : ${rec.bottom}
+                rec top : ${position.top}
+                rec bottom : ${position.bottom}
                 window innerHeight : ${window.innerHeight}
             ` )
         }else{
-            //if (false) remove the class active
+            //if (false) remove the class active using classList.remove() method
             link.classList.remove('active')
         }
     })
 })
 
 
+//********************** */
 
+//scroll to the section when click on the section name on the navbar
 
+//********************** */
 
+//select all navItems
+let navItems = document.querySelectorAll('a')
+//loop in (navItems using forEach)
+navItems.forEach(item=>{
+    //add event listener (click) to the nav items
+    item.addEventListener("click",()=>{
+        //select the section (ID) to scroll to by the same navItem data-link name
+        let section = document.getElementById(item.getAttribute('data-link'))
+        //use scrollIntoView() method to scroll to the section
+        //scrollIntoView() method
+        //has an object paramter behavior which control the scrolling speed 
+        //also block paramter center : to center the section in the viewport
+        section.scrollIntoView({
+            behavior : "smooth",
+            block : "center"
+        })
+        console.log(item.getAttribute('data-link'))
+    })
+})
     
 
 
