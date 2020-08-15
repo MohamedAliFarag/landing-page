@@ -1,13 +1,15 @@
-# Landing Page Project
+# Landing Page Project 2020
 
 ## Table of Contents
+- HTML
+- CSS
+- JS
 
-* [Instructions](#instructions)
 
-## Instructions
+## work have done
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+* add an active class when scroll on the sections
+* add eventlistener to the navbar items to scroll to the section
+* add navbar item dynamically when a new section added to the page
 
-To get started, open `js/app.js` and start building out the app's functionality
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
